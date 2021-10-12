@@ -1,0 +1,17 @@
+{
+    "host": "tlpunity.beget.tech",
+    "username": "tlpunity_vasya",
+    "password": "c3twAY3d0OaZ",
+    "remotePath": "",
+    "protocol": "ftp",
+    "port": 21,
+    "fileNameEncoding": "utf8",
+    "autoUpload": true,
+    "autoDelete": false,
+    "autoDownload": false,
+    "ignore": [
+        ".git",
+        "/.vscode",
+        "/node_modules"
+    ]
+}

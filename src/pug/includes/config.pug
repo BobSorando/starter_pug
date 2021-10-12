@@ -1,0 +1,13 @@
+-var phone1 = '7 959 000-00-00';
+-var phone2 = '8 800 600-38-46';
+-var phone3 = '7 968 408-88-12';
+-var phone_replace1 = phone1.replace(/\D/g,'');
+-var phone_replace2 = phone2.replace(/\D/g,'');
+-var phone_replace3 = phone3.replace(/\D/g,'');
+if phone1.charAt(0) == 7
+  -var phone_replace1 = '+'+phone_replace1;
+if phone2.charAt(0) == 7
+  -var phone_replace2 = '+'+phone_replace2;
+if phone3.charAt(0) == 7
+  -var phone_replace3 = '+'+phone_replace3;
+  -var phone3 = '+'+phone3;

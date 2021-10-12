@@ -1,0 +1,10 @@
+mixin image(link)
+  picture
+    source(srcset=link+".webp")
+    img(src=link)
+mixin gellary(imgs)
+  .gallery.block
+    .gallery__slider.owl-carousel
+      each val, key in imgs
+        .single-photo
+          img(src=val)

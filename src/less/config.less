@@ -1,0 +1,237 @@
+// USER VARIABLES SECTION
+
+@accent: #FFCF6A; // Accent Color
+@fontsize: 18px; // Body Font Size
+@textcolor: rgba(15, 35, 69, 0.871); // Text Color
+@lineheight: 1.5; // Document Line Height
+@userfont: 'DaxlinePro'; // User Font Family
+@systemfont: -apple-system, BlinkMacSystemFont, Arial, sans-serif; // System Font Family
+@title_font: @userfont;
+@lineheight-title: 1.2;
+@titlecolor:rgba(40, 110, 140, 0.871);
+@container-width: 1140px;
+
+
+// IMPORT SECTION
+
+// @import '/node_modules/bootstrap/dist/css/bootstrap-reboot.min.css'; // Bootstrap Reboot collection
+// @import '/node_modules/bootstrap/dist/css/bootstrap-grid.min.css'; // Optional Bootstrap Grid
+
+// FONTS LOAD SECTION
+
+.font(@fname, @fstyle, @fweight, @furl) {
+	@font-face {
+		font-family: @fname;
+		font-style: @fstyle;
+		font-weight: @fweight;
+		src: url(@furl) format('woff');
+	}
+}
+
+.font('DaxlinePro', normal, 400, '../fonts/DaxlinePro-Regular.woff');
+.font('DaxlinePro', normal, 700, '../fonts/DaxlinePro-Bold.woff');
+
+// GENERAL DOCUMENT STYLES
+
+::placeholder {
+	color: #666;
+}
+
+::selection {
+	background-color: @accent;
+	color: #fff;
+}
+
+body.compensate-for-scrollbar{
+	margin-right: 0;
+}
+
+input, textarea {
+	outline: none;
+	&:focus:required:invalid { border-color: red }
+	&:required:valid { border-color: green }
+}
+input.error{
+	border-color: red;
+	box-shadow: 0 2.38494px 0 rgba(255, 0, 0, 0.5);
+}
+.input_wrap{
+	display: block;
+	position: relative;
+}
+input[type="text"].invalid, input[type="tel"].invalid, input[type="email"].invalid{
+	box-shadow: 0px 1px 0px 0px #DF727280;
+	color: #df7272;
+	padding-left: 10px;
+}
+html{
+	overflow-x: hidden;
+}
+
+@media(min-width: 1199px){
+	.container{
+		max-width: @container-width;
+	}
+}
+
+body {
+	font-family: @userfont;
+	font-size: @fontsize;
+	line-height: @lineheight;
+	color: @textcolor;
+	min-width: 320px;
+	margin: 0 auto;
+	position: relative;
+	overflow-x: hidden;
+	max-width: 1920px;
+}
+
+.wpcf7-not-valid, .wpcf7-not-valid::placeholder{
+	color: red!important;
+	border-color: red!important;
+}
+.wpcf7 form .wpcf7-response-output{
+	margin: 0 !important;
+}
+.wpcf7-not-valid-tip, .wpcf7-form.invalid .wpcf7-response-output{
+	display: none!important
+}
+.align-center{
+	text-align: center
+}
+.align-left{
+	text-align: left
+}
+.align-right{
+	text-align: right
+}
+.align-md-center{
+	@media( max-width: 768px){
+		text-align: center
+	}
+}
+
+.title{
+	font-size: 40px;
+	font-weight: 700;
+	font-family: @title_font;
+	line-height: @lineheight-title;
+	margin-bottom: 30px;
+	color: @titlecolor;
+	span{
+		color: @accent;
+	}
+}
+
+.subtitle{
+	font-size: 18px;
+	margin-bottom: 50px;
+	font-weight: 400;
+	color: @titlecolor;
+}
+a{
+	transition: all 0.3 ease;
+}
+a.phone{
+	font-weight: 700;
+	color: @textcolor;
+}
+a.mail{
+	color: @titlecolor;
+	&:hover{
+		opacity: 0.6;
+	}
+}
+a{
+	color: @titlecolor;
+	transition: all 0.3s ease;
+	text-decoration: none;
+	&:hover{
+		text-decoration: none;
+	}
+	&:hover, &:active{
+		opacity: 0.6;
+	}
+}
+p{
+	font-size: 18px;
+	color: @textcolor;
+	margin-top: 0;
+	margin-bottom: 27px;
+}
+ul{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	&.marked{
+		li{
+			position: relative;
+			padding-left: 52px;
+			margin-bottom: 25px;
+			span{
+				color: @accent;
+				font-weight: 500;
+			}
+			&::before{
+				content: '';
+				position: absolute;
+				top: 50%;
+				left: -52px;
+				transform: translateY(-50%);
+				width: 32px;
+				height: 22px;
+				background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='22' viewBox='0 0 32 22' fill='none'%3E%3Cpath d='M21.4544 0.214283C21.2979 0.0699081 21.0923 -0.00678473 20.8812 0.000471753C20.67 0.00772824 20.47 0.0983629 20.3234 0.253151C20.1769 0.40794 20.0954 0.614706 20.0962 0.829593C20.097 1.04448 20.1801 1.25058 20.3279 1.40419L29.2914 10.1742H0.812402C0.59694 10.1742 0.390302 10.2613 0.237947 10.4163C0.0855921 10.5712 0 10.7814 0 11.0006C0 11.2197 0.0855921 11.4299 0.237947 11.5849C0.390302 11.7398 0.59694 11.8269 0.812402 11.8269H29.2903L20.329 20.5958C20.1812 20.7494 20.0981 20.9555 20.0973 21.1704C20.0965 21.3853 20.178 21.5921 20.3245 21.7469C20.471 21.9016 20.6711 21.9923 20.8823 21.9995C21.0934 22.0068 21.299 21.9301 21.4555 21.7857L31.6679 11.7938C31.773 11.691 31.8565 11.5677 31.9135 11.4313C31.9706 11.2949 32 11.1482 32 11C32 10.8518 31.9706 10.7051 31.9135 10.5687C31.8565 10.4323 31.773 10.309 31.6679 10.2062L21.4555 0.213181L21.4544 0.214283Z' fill='%237A6F4C'/%3E%3C/svg%3E");
+			}
+		}
+	}
+}
+img{
+	max-width: 100%;
+}
+button{
+	border: none;
+	outline: none;
+	line-height: 1.5;
+	transition: all 0.3s ease;
+	color: @titlecolor;
+	border-radius: 4px;
+	font-family: @userfont;
+	font-weight: 400;
+	cursor: pointer;
+	transition: opacity 0.3s ease;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	&:hover{
+		opacity: 0.6;
+	}
+	&.accent{
+		font-size: 14px;
+		line-height: 1.44;
+		background-color: @accent;
+		height: 40px;
+		max-width: 180px;
+		width: 100%;
+		padding-top: 2px;
+	}
+	&.white{
+		font-size: 16px;
+		height: 70px;
+		max-width: 250px;
+		width: 100%;
+		color: @textcolor;
+		background-color: #fff;
+		position: relative;
+		&::after{
+			content: '';
+			background-size: contain;
+			width: 7px;
+			height: 11px;
+			display: inline-block;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='11' viewBox='0 0 7 11' fill='none'%3E%3Cpath d='M6.28694 5.07078L1.3918 0.17573C1.27858 0.0624223 1.12745 0 0.966293 0C0.80514 0 0.654003 0.0624223 0.540784 0.17573L0.180291 0.536134C-0.0542841 0.770977 -0.0542841 1.15267 0.180291 1.38715L4.29086 5.49772L0.17573 9.61285C0.0625117 9.72616 0 9.8772 0 10.0383C0 10.1995 0.0625117 10.3506 0.17573 10.464L0.536223 10.8243C0.649531 10.9376 0.800579 11 0.961732 11C1.12289 11 1.27402 10.9376 1.38724 10.8243L6.28694 5.92475C6.40043 5.81108 6.46276 5.65932 6.4624 5.49799C6.46276 5.33603 6.40043 5.18436 6.28694 5.07078Z' fill='%230F2345' fill-opacity='0.87'/%3E%3C/svg%3E");
+			background-repeat: no-repeat;
+			margin-left: 23px;
+		}
+	}
+}
