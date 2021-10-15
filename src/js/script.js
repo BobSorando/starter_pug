@@ -1,4 +1,23 @@
 $(document).ready(function(){
+		// var countDownDate = new Date($('.counter-wrap').data('date')).getTime();
+		// setInterval(function() {
+
+		// 	// Get today's date and time
+		// 	var now = new Date().getTime();
+
+		// 	// Find the distance between now and the count down date
+		// 	var distance = countDownDate - now;
+
+		// 	// Time calculations for days, hours, minutes and seconds
+		// 	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+		// 	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		// 	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		// 	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+		// 	$('.counter-item.days .num').html(days);
+		// 	$('.counter-item.hours .num').html(hours);
+		// 	$('.counter-item.minutes .num').html(minutes);		
+		// }, 1000);
     // $('[data-fancybox="gallery"]').fancybox();
 
 	// $('.menu a').on('click', function (e) {
@@ -14,6 +33,15 @@ $(document).ready(function(){
         
     // });
 
+	//TABS
+
+	// $('.brain_btns>.br_btn').on('click', function(){
+	// 	$('.brain_btns>.br_btn.active').removeClass('active');
+	// 	$('.descr_content.active').removeClass('active');
+	// 	var current_tab = $(this).attr('data-tab');
+	// 	$(this).addClass('active');
+	// 	$('.descr_content[data-tab='+current_tab+']').addClass('active');
+	// })
 	// var hamburger = $(".hamburger");
 	// var body = $('body');
 	// hamburger.on('click', function(){

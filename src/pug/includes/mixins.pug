@@ -1,10 +1,12 @@
-mixin image(link)
-  picture
-    source(srcset=link+".webp")
-    img(src=link)
+mixin image(link, alt="")
+  -var base = 'build/img/';
+  picture 
+    -var link_rep = link.replace(/.jpeg|.png|.jpg/g,'');
+    source(srcset=base+link+'.webp', type="image/")
+    img(src=base+link, alt=alt)
 mixin gellary(imgs)
-  .gallery.block
-    .gallery__slider.owl-carousel
+  .partners-gallery.block
+    .partners-gallery__slider.owl-carousel
       each val, key in imgs
         .single-photo
           img(src=val)

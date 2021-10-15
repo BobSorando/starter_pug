@@ -5,12 +5,17 @@
   "main": "gulpfile.js",
   "scripts": {
     "dev": "gulp watch --dev",
-    "build": "gulp build"
+    "build": "gulp build",
+    "prod": "gulp production"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "@babel/node": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
@@ -22,5 +27,16 @@
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^3.0.2",
     "readable-stream": "^3.4.0"
+  },
+  "dependencies": {
+    "gulp-babel": "^8.0.0",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-livereload": "^4.0.2",
+    "gulp-logger": "0.0.2",
+    "gulp-pug": "^5.0.0",
+    "gulp-util": "^3.0.8",
+    "gulp-webp": "^4.0.1",
+    "gutil": "^1.6.4",
+    "pug": "^3.0.2"
   }
 }

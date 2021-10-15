@@ -10,6 +10,9 @@ var rename = require("gulp-rename");
 var concat = require('gulp-concat');
 var pug = require('gulp-pug');
 var webp = require('gulp-webp');
+var imagemin = require('gulp-imagemin');
+var logger = require('gulp-logger');
+// var babel = require('gulp-babel');
 
 const isDev = (process.argv.indexOf('--dev') !== -1);
 const isProd = !isDev;
@@ -57,15 +60,36 @@ function scripts_vend(){
 function custom_scripts(){
   return gulp.src('./src/js/script.js')
       .pipe(gulpif(isDev, sourcemaps.init()))
+      // .pipe(babel({
+      //   presets: ['@babel/env']
+      // }))
       .pipe(concat('custom_script.min.js'))
       .pipe(gulpif(isProd,uglify())) // Mifify js (opt.)
       .pipe(gulpif(isDev,sourcemaps.write()))
       .pipe(gulp.dest('./build/js'))
 }
 
+function img_optimize(){
+  return gulp.src('./src/img/**/*')
+    .pipe(imagemin([
+      imagemin.gifsicle({interlaced: true}),
+      imagemin.mozjpeg({quality: 80, progressive: true}),
+      imagemin.optipng({optimizationLevel: 5}),
+      imagemin.svgo({
+        plugins: [
+          {removeViewBox: true},
+          {cleanupIDs: false}
+        ]
+      })
+    ], {
+      verbose: true
+    }))
+    .pipe(webp())
+    .pipe(gulp.dest('./build/img'))
+}
+
 function img(){
   return gulp.src('./src/img/**/*')
-    .pipe(webp())
     .pipe(gulp.dest('./build/img'))
 }
 
@@ -75,7 +99,7 @@ function fonts(){
 }
 
 function Pug(){
-  return gulp.src(['./src/pug/**/*.pug', '!./src/pug/includes/**/*.pug'])
+  return gulp.src(['!./src/pug/includes/**/*.pug', './src/pug/**/*.pug'])
     .pipe(pug({pretty:true}))
     .pipe(gulp.dest('./'))
 }
@@ -83,13 +107,27 @@ function Pug(){
 function watch(){
   gulp.watch('./src/less/*.less', Less);
   gulp.watch('./src/js/script.js', custom_scripts);
-  gulp.watch('./src/pug/**/*.pug', Pug);
-  gulp.watch('./*.html');
+  gulp.watch('./src/pug/**/*.pug').on('change', function(file){
+    console.log(file);
+    if(!file.includes('/includes/')){
+      return gulp.src([file])
+        .pipe(logger({
+          before: 'Starting Pug...',
+          after: 'Pug complete!',
+          extname: '.pug',
+          showChange: true
+        }))
+        .pipe(pug({pretty:true}))
+        .pipe(gulp.dest('./'))
+    }
+  });
   gulp.watch('./src/fonts/**/*', fonts);
   gulp.watch('./src/img/**/*', img);
 }
 
 var build = gulp.series(clear, gulp.parallel(Less, scripts_vend, custom_scripts, img, styles_vend, fonts, Pug));
 
+gulp.task('production', img_optimize);
+
 gulp.task('build', build);
-gulp.task('watch', gulp.series(build,watch));
+gulp.task('watch', watch);
