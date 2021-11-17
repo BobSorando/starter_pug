@@ -64,7 +64,7 @@ function custom_scripts(){
       //   presets: ['@babel/env']
       // }))
       .pipe(concat('custom_script.min.js'))
-      .pipe(gulpif(isProd,uglify())) // Mifify js (opt.)
+      .pipe(uglify()) // Mifify js (opt.)
       .pipe(gulpif(isDev,sourcemaps.write()))
       .pipe(gulp.dest('./build/js'))
 }
