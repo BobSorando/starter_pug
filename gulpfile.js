@@ -22,20 +22,34 @@ function clear() {
 }
 
 function Less(){
-  return gulp.src('./src/less/style.less')
+  return gulp.src('./src/less/style.less', './src/less/adaptive.less')
     .pipe(sourcemaps.init())
 	  .pipe(less())
-	  .pipe(rename({ suffix: '.min', prefix : '' }))
 	  .pipe(autoprefixer(['cover 99.5%']))
 	  .pipe(cleanCSS({
       level: 2
     }))
+    .pipe(rename({ suffix: '.min', prefix : '' }))
+	  .pipe(gulpif(isDev,sourcemaps.write()))
+	  .pipe(gulp.dest( './build/css/' ))
+}
+
+function critical(){
+  return gulp.src('./src/less/config.less')
+    .pipe(sourcemaps.init())
+	  .pipe(less())
+	  .pipe(autoprefixer(['cover 99.5%']))
+	  .pipe(cleanCSS({
+      level: 2
+    }))
+    .pipe(concat('./src/css/critical/*.css', 'critical.css'))
+    .pipe(rename({ suffix: '.min', prefix : '' }))
 	  .pipe(gulpif(isDev,sourcemaps.write()))
 	  .pipe(gulp.dest( './build/css/' ))
 }
 
 function styles_vend(){
-  return gulp.src(['./src/css/vendors/normalize.css', './src/css/vendors/*.css', './src/css/styles.css'])
+  return gulp.src(['./src/css/vendors/*.css', './src/css/styles.css'])
     .pipe(sourcemaps.init())
     .pipe(gulpif(isProd, cleanCSS({
       level: 2
@@ -57,6 +71,7 @@ function scripts_vend(){
       .pipe(gulpif(isDev,sourcemaps.write()))
       .pipe(gulp.dest('./build/js'))
 }
+
 function custom_scripts(){
   return gulp.src('./src/js/script.js')
       .pipe(gulpif(isDev, sourcemaps.init()))
@@ -125,7 +140,7 @@ function watch(){
   gulp.watch('./src/img/**/*', img);
 }
 
-var build = gulp.series(clear, gulp.parallel(Less, scripts_vend, custom_scripts, img, styles_vend, fonts, Pug));
+var build = gulp.series(clear, gulp.parallel(Less, scripts_vend, custom_scripts, img, styles_vend, fonts, Pug, critical));
 
 gulp.task('production', img_optimize);
 
