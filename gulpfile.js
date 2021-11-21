@@ -22,7 +22,7 @@ function clear() {
 }
 
 function Less(){
-  return gulp.src('./src/less/style.less', './src/less/adaptive.less')
+  return gulp.src(['./src/less/style.less', './src/less/adaptive.less'])
     .pipe(sourcemaps.init())
 	  .pipe(less())
 	  .pipe(autoprefixer(['cover 99.5%']))
@@ -35,14 +35,14 @@ function Less(){
 }
 
 function critical(){
-  return gulp.src('./src/less/config.less')
+  return gulp.src(['./src/less/config.less', './src/css/critical/*.css'])
     .pipe(sourcemaps.init())
 	  .pipe(less())
 	  .pipe(autoprefixer(['cover 99.5%']))
 	  .pipe(cleanCSS({
       level: 2
     }))
-    .pipe(concat('./src/css/critical/*.css', 'critical.css'))
+    .pipe(concat('critical.css'))
     .pipe(rename({ suffix: '.min', prefix : '' }))
 	  .pipe(gulpif(isDev,sourcemaps.write()))
 	  .pipe(gulp.dest( './build/css/' ))
@@ -123,7 +123,6 @@ function watch(){
   gulp.watch('./src/less/*.less', Less);
   gulp.watch('./src/js/script.js', custom_scripts);
   gulp.watch('./src/pug/**/*.pug').on('change', function(file){
-    console.log(file);
     if(!file.includes('/includes/')){
       return gulp.src([file])
         .pipe(logger({
@@ -140,9 +139,9 @@ function watch(){
   gulp.watch('./src/img/**/*', img);
 }
 
-var build = gulp.series(clear, gulp.parallel(Less, scripts_vend, custom_scripts, img, styles_vend, fonts, Pug, critical));
+var build = gulp.series(clear, gulp.parallel(Less, critical, scripts_vend, custom_scripts, img, styles_vend, fonts, Pug));
 
-gulp.task('production', img_optimize);
 
 gulp.task('build', build);
 gulp.task('watch', watch);
+gulp.task('production', img_optimize);
