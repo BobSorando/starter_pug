@@ -1,5 +1,5 @@
 mixin image(link, alt="")
-  -var base = 'build/img/';
+  -var base = 'assets/img/';
   picture 
     -var link_rep = link.replace(/.jpeg|.png|.jpg/g,'');
     source(srcset=base+link+'.webp', type="image/")

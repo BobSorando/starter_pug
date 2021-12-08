@@ -18,7 +18,7 @@ const isDev = (process.argv.indexOf('--dev') !== -1);
 const isProd = !isDev;
 
 function clear() {
-  return del('build/*');
+  return del('assets/*');
 }
 
 function Less(){
@@ -31,7 +31,7 @@ function Less(){
     }))
     .pipe(rename({ suffix: '.min', prefix : '' }))
 	  .pipe(gulpif(isDev,sourcemaps.write()))
-	  .pipe(gulp.dest( './build/css/' ))
+	  .pipe(gulp.dest( './assets/css/' ))
 }
 
 function critical(){
@@ -45,7 +45,7 @@ function critical(){
     .pipe(concat('critical.css'))
     .pipe(rename({ suffix: '.min', prefix : '' }))
 	  .pipe(gulpif(isDev,sourcemaps.write()))
-	  .pipe(gulp.dest( './build/css/' ))
+	  .pipe(gulp.dest( './assets/css/' ))
 }
 
 function styles_vend(){
@@ -60,7 +60,7 @@ function styles_vend(){
     }))
     .pipe(rename({suffix: '.min'}))
     .pipe(gulpif(isDev,sourcemaps.write()))
-    .pipe(gulp.dest('./build/css'))
+    .pipe(gulp.dest('./assets/css'))
 }
 
 function scripts_vend(){
@@ -69,7 +69,7 @@ function scripts_vend(){
       .pipe(concat('scripts_vend.min.js'))
       .pipe(gulpif(isProd,uglify())) // Mifify js (opt.)
       .pipe(gulpif(isDev,sourcemaps.write()))
-      .pipe(gulp.dest('./build/js'))
+      .pipe(gulp.dest('./assets/js'))
 }
 
 function custom_scripts(){
@@ -81,7 +81,7 @@ function custom_scripts(){
       .pipe(concat('custom_script.min.js'))
       .pipe(uglify()) // Mifify js (opt.)
       .pipe(gulpif(isDev,sourcemaps.write()))
-      .pipe(gulp.dest('./build/js'))
+      .pipe(gulp.dest('./assets/js'))
 }
 
 function img_optimize(){
@@ -100,17 +100,17 @@ function img_optimize(){
       verbose: true
     }))
     .pipe(webp())
-    .pipe(gulp.dest('./build/img'))
+    .pipe(gulp.dest('./assets/img'))
 }
 
 function img(){
   return gulp.src('./src/img/**/*')
-    .pipe(gulp.dest('./build/img'))
+    .pipe(gulp.dest('./assets/img'))
 }
 
 function fonts(){
   return gulp.src('./src/fonts/**/*')
-    .pipe(gulp.dest('./build/fonts'))
+    .pipe(gulp.dest('./assets/fonts'))
 }
 
 function Pug(){
